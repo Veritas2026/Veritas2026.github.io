@@ -56,4 +56,5 @@ img {max-width: 175px; width: 100%; height: auto;}
     h1 {font-size: clamp(2rem, 7vw, 3rem);}
     div-h3 { align-items: center;}
     .footer { font-size: 0.95rem; padding: 0.85rem;}
+    .text-desc {margin-bottom: 5rem;}
 }
