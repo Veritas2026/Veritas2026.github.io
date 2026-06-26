@@ -3,11 +3,11 @@ const pageContent = {
     "ABOUT": {
         title: " ",
         html: `
-        <p>Veritas Metabolic Advisory is a boutique scientific consulting firm exclusively focused in Metabolic Disease R&D, Search & Evaluation, Due-Diligence, Partnering, and Alliance Development.</p>
+        <p>Veritas Metabolic Advisory (VMA) is a boutique scientific consulting firm exclusively focused in Metabolic Disease External R&D, Search & Evaluation, Due-Diligence, Partnering, and Alliance Development.</p>
         <p>Founded on the principle that the best decisions are grounded in deep domain expertise and intellectual honesty, VMA brings senior pharmaceutical R&D experience directly to clients who need decision-quality insight, not generalist advice.</p>
         <p>We serve pharmaceutical and biotech companies seeking rigorous external innovation support, and academic institutions and technology transfer offices preparing to engage with industry. Whether the need is strategic, scientific, or transactional, Veritas operates as a trusted, confidential partner at every stage.</p>`
     },
-    "SERVICES": {
+    "SERVING": {
         title: " ",
         html: `
         <strong>Pharmaceutical & Biotech Companies</strong>
@@ -39,11 +39,10 @@ const pageContent = {
                 <ul>
                     <li>
                         <p><strong>Deal Funnel Management & Asset Triage:</strong>
-                        Serving as an expert scientific gatekeeper to vet inbound asset presentations from academic labs and biotechs. Rapidly separate high-potential opportunities from those requiring immediate dismissal based on strategic fit, technical feasibility, and commercial viability. </p>
+                        Serving as an expert scientific gatekeeper to vet inbound asset presentations from academic labs and biotechs. Rapidly separate high-potential opportunities from those requiring immediate dismissal based on strategic fit, technical feasibility, and commercial viability.</p>
                     </li>
                     <li>
-                    <p><strong>Due Diligence Architecture:</strong> Initiating, leading, and managing rigorous scientific and technical due diligence processes for assets from discovery to Phase 2.
-                    </p>
+                    <p><strong>Due Diligence Architecture:</strong> Initiating, leading, and managing rigorous scientific and technical due diligence processes for assets from discovery to Phase 2. </p>
                     </li>
                     <li>
                         <p><strong>Executive Synthesis:</strong> Translating dense, multi-disciplinary technical data, portfolio assessments, and competitive landscape analyses into high-level, fit-for-purpose recommendation memos tailored for senior leadership and governance boards.</p>
@@ -62,7 +61,7 @@ const pageContent = {
             </li>
         </ul>`
     },
-    "ACADEMIA/TTO": {
+    "ACADEMIA": {
         title: " ",
         html: `
         <strong>Academic Institutions & Technology Transfers Offices</strong>
@@ -93,30 +92,24 @@ const pageContent = {
         </ul>
         `
     },
-    "THERAPUTIC AREAS": {
+    "FOCUS AREAS": {
         title: " ",
         html: `
+        <strong>AREAS OF THERAPEUTIC FOCUS</strong>
         <ul>
             <li>Obesity</li>
             <li>Type 2 Diabetes</li>
             <li>NASH/MASH</li>
             <li>Cardiorenal Disease</li>
-        </ul>`
-    },
-    "MODALITIES": {
-        title: " ",
-        html: `
+        </ul>
+        <strong>MODALITIES</strong>
         <ul>
             <li>Small Molecules</li>
             <li>Biologics</li>
             <li>RNA Therapeutics</li>
-            <li>Gene Therapy</li>
             <li>AI-Enabled Platforms</li>
-        </ul>`
-    },
-    "DEAL TYPES SUPPORTED": {
-        title: " ",
-        html: `
+        </ul>
+        <strong>DEAL TYPES SUPPORTED</strong>
         <ul>
             <li>Licenses</li>
             <li>Research Collaborations</li>
@@ -124,24 +117,22 @@ const pageContent = {
             <li>MTAs, CDAs, Amendments</li>
         </ul>`
     },
-    "ENGAGEMENT MODEL": {
+    "WORKING WITH VMA": {
         title: " ",
         html: `
+        <strong>ENGAGEMENT MODEL</strong>
         <ul>
             <li>Flexible, project-based or retainer arrangements tailored to client needs.</li>
             <li>Strict confidentiality and ethical standards; independent, non-affiliated with any third-party conflicts.</li>
             <li>Transparent deliverables: diagnostic memos, go/no-go recommendations, deal-ready data rooms, and executive briefs.</li>
-        </ul>`
-    },
-    "WORKING WITH VMA": {
-        title: " ",
-        html: `
+        </ul>
+
         <p>Veritas Metabolic Advisory operates with full independence, strict confidentiality, and an unwavering commitment to scientific integrity. Engagements are structured to meet the specific needs of each client; from discrete advisory projects to ongoing retained consulting relationships. </p>
 
-        <p>All work is performed without use of third-party confidential information, and clients can be assured that the analysis and recommendations they receive reflect objective, expert judgment, not conflicted interests.
-        </p>`
+        <p>All work is performed without use of third-party confidential information, and clients can be assured that the analysis and recommendations they receive reflect objective, expert judgment, not conflicted interests. </p>`
     }
 };
+
 
 function setContent(key) {
     const section = document.getElementById('text-desc');
@@ -151,8 +142,34 @@ function setContent(key) {
 }
 
 const sidebar = document.querySelector('.sidebar');
+
+// Prevent details element from closing
+const detailsElement = document.querySelector('details');
+detailsElement.addEventListener('toggle', event => {
+    event.preventDefault();
+    detailsElement.open = true;
+});
+
 sidebar.addEventListener('click', event => {
     const target = event.target.closest('[data-key]');
     if (!target) return;
+    
+    // Remove active class from all menu items, submenu items, and summary elements
+    document.querySelectorAll('.menu-item, .submenu-item, summary').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Add active class to clicked element
+    target.classList.add('active');
+    
     setContent(target.dataset.key);
+});
+
+// Set ABOUT as active on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const aboutItem = document.querySelector('[data-key="ABOUT"]');
+    if (aboutItem) {
+        aboutItem.classList.add('active');
+        setContent('ABOUT');
+    }
 });
